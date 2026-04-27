@@ -6,8 +6,6 @@ REST API for managing vehicle entry control and cargo verification, built with *
 
 This API handles the registration and verification process of vehicles and their cargo categories. It tracks each vehicle's arrival, agent intervention, and the full verification workflow per cargo category — including authorization status, documentation, and delivery.
 
-Inspired by a real system developed for a logistics and financial environment.
-
 ## Tech Stack
 
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white)

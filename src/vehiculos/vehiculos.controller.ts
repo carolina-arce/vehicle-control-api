@@ -1,50 +1,37 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column,
-  OneToMany, CreateDateColumn, UpdateDateColumn,
-} from 'typeorm'
-import { VehiculoRubro } from '../vehiculo-rubros/vehiculo-rubro.entity'
+  Controller, Get, Post, Patch, Delete,
+  Param, Body, ParseIntPipe,
+} from '@nestjs/common'
+import { VehiculosService } from './vehiculos.service'
+import { CreateVehiculoDto } from './dto/create-vehiculo.dto'
+import { UpdateVehiculoDto } from './dto/update-vehiculo.dto'
 
-@Entity('vehiculos')
-export class Vehiculo {
-  @PrimaryGeneratedColumn()
-  id: number
+@Controller('vehiculos')
+export class VehiculosController {
+  constructor(private readonly vehiculosService: VehiculosService) {}
 
-  @Column({ length: 10, nullable: true })
-  nro: string | null                        
+  @Get()
+  findAll() {
+    return this.vehiculosService.findAll()
+  }
 
-  @Column({ length: 100 })
-  codigo: string                          
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.vehiculosService.findOne(id)
+  }
 
-  @Column({ type: 'date', nullable: true })
-  fechaArribo: Date | null
+  @Post()
+  create(@Body() dto: CreateVehiculoDto) {
+    return this.vehiculosService.create(dto)
+  }
 
-  @Column({ length: 100, nullable: true })
-  destino: string | null
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateVehiculoDto) {
+    return this.vehiculosService.update(id, dto)
+  }
 
-  @Column({ type: 'date', nullable: true })
-  fechaIntervencionAgente: Date | null       
-
-  @Column({ default: true })
-  activo: boolean
-
-  @Column({ length: 100, nullable: true })
-  creadoPor: string | null
-
-  @CreateDateColumn()
-  fechaCreacion: Date
-
-  @UpdateDateColumn({ nullable: true })
-  fechaModificacion: Date | null
-
-  @Column({ type: 'timestamp', nullable: true })
-  fechaBaja: Date | null
-
-  @Column({ length: 100, nullable: true })
-  dadoDeBajaPor: string | null
-
-  @Column({ length: 100, nullable: true })
-  modificadoPor: string | null
-
-  @OneToMany(() => VehiculoRubro, (vr) => vr.vehiculo)
-  rubros: VehiculoRubro[]
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.vehiculosService.remove(id)
+  }
 }

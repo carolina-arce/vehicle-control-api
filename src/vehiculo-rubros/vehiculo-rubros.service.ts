@@ -21,12 +21,12 @@ export class VehiculoRubrosService {
   }
 
   async create(dto: CreateVehiculoRubroDto): Promise<VehiculoRubro> {
-    const vehiculoRubro = this.vehiculoRubroRepo.create({
-      ...dto,
-      autorizacionConfirmada: dto.fechaAutorizacion ? 1 : 0,
-      documentacionConfirmada: dto.fechaEnvioDocumentacion ? 1 : 0,
-    })
-    return this.vehiculoRubroRepo.save(vehiculoRubro)
+  const vehiculoRubro = this.vehiculoRubroRepo.create({
+    ...dto,
+    autorizacionConfirmada: dto.fechaAutorizacion ? true : false,
+    documentacionConfirmada: dto.fechaEnvioDocumentacion ? true : false,
+  })
+  return this.vehiculoRubroRepo.save(vehiculoRubro)
   }
 
   async updateEstado(id: number, dto: UpdateEstadoDto): Promise<VehiculoRubro> {

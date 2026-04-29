@@ -20,7 +20,7 @@ export class CreateVehiculoRubroDto {
   @IsOptional()
   observacion?: string
 
-  @IsInt()
+  @IsNumber()
   @Min(0)
   unidades: number
 

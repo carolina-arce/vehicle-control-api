@@ -5,10 +5,11 @@ import {
 import { VehiculoRubrosService } from './vehiculo-rubros.service'
 import { CreateVehiculoRubroDto } from './dto/create-vehiculo-rubro.dto'
 import { UpdateEstadoDto } from './dto/update-estado.dto'
+import { UpdateVehiculoRubroDto } from './dto/update-vehiculo-rubro.dto'
 
 @Controller('vehiculo-rubros')
 export class VehiculoRubrosController {
-  constructor(private readonly vehiculoRubrosService: VehiculoRubrosService) {}
+  constructor(private readonly vehiculoRubrosService: VehiculoRubrosService) { }
 
   // GET /api/vehiculo-rubros/vehiculo/:vehiculoId
   @Get('vehiculo/:vehiculoId')
@@ -29,5 +30,12 @@ export class VehiculoRubrosController {
     @Body() dto: UpdateEstadoDto,
   ) {
     return this.vehiculoRubrosService.updateEstado(id, dto)
+  }
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateVehiculoRubroDto,
+  ) {
+    return this.vehiculoRubrosService.update(id, dto)
   }
 }
